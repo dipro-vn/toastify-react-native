@@ -21,7 +21,7 @@ class ToastManager extends Component<ToastManagerProps, ToastManagerState> {
   constructor(props: ToastManagerProps) {
     super(props);
     ToastManager.__singletonRef = this;
-    this.timer = setTimeout(() => {}, 0); // Initialize timer with a dummy value
+    this.timer = setTimeout(() => { }, 0); // Initialize timer with a dummy value
     this.isShow = false;
   }
 
@@ -104,7 +104,7 @@ class ToastManager extends Component<ToastManagerProps, ToastManagerState> {
   };
 
   pause = () => {
-    clearTimeout(this.timer); 
+    clearTimeout(this.timer);
     this.setState({ oldDuration: this.state.duration, duration: Number.MAX_VALUE });
     Animated.timing(this.state.barWidth, {
       toValue: 0,
@@ -158,6 +158,7 @@ class ToastManager extends Component<ToastManagerProps, ToastManagerState> {
       textStyle,
       theme,
       showCloseIcon,
+      showActionIcon,
       showProgressBar,
     } = this.props;
 
@@ -201,7 +202,9 @@ class ToastManager extends Component<ToastManagerProps, ToastManagerState> {
             </TouchableOpacity>
           )}
           <View style={styles.content}>
-            <Icon name={icon} size={22} color={barColor} style={styles.iconWrapper} />
+            {
+              showActionIcon && <Icon name={icon} size={22} color={barColor} style={styles.iconWrapper} />
+            }
             <Text style={[styles.textStyle, { color: Colors[theme].text, ...textStyle }]}>{text}</Text>
           </View>
           {showProgressBar && (
